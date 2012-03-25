@@ -1,6 +1,16 @@
+# Variables
+remote_base_url = "https://raw.github.com/bmarini/rails-templates/master"
+
+# Unicorn and foreman
 gem "unicorn"
 gem "foreman"
 create_file "Procfile", "web: bundle exec unicorn -p $PORT"
+
+# Initial homepage
+remove_file "public/index.html"
+get "#{remote_base_url}/files/app/controllers/home_controller.rb", "app/controllers/home_controller.rb"
+get "#{remote_base_url}/files/app/views/home/index.html.erb", "app/views/home/index.html.erb"
+route "root :to => 'home#index'"
 
 # Mongoid
 if yes?("Would you like to use Mongoid?")
@@ -50,8 +60,8 @@ if yes?("Would you like to install twitter bootstrap?")
   empty_directory "public/img"
   run "cp tmp/bootstrap/img/* public/img/"
 
-  get "https://raw.github.com/bmarini/rails-templates/master/files/app/helpers/alerts_helper.rb",
-      "app/helpers/alerts_helper.rb"
+  get "#{remote_base_url}/files/app/helpers/alerts_helper.rb", "app/helpers/alerts_helper.rb"
+  get "#{remote_base_url}/files/app/views/layouts/bootstrap.html.erb", "app/views/layouts/application.html.erb"
 end
 
 # Other javascript goodies
