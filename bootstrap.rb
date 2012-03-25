@@ -18,7 +18,7 @@ if yes?("Would you like to use Mongoid?")
   gem "bson_ext"
 
   gsub_file 'Gemfile', /gem 'sqlite3'/, "# gem 'sqlite3'"
-  gsub_file 'config/application.rb', /  require 'rails\/all'/, <<-'EOS'
+  gsub_file 'config/application.rb', /require 'rails\/all'/, <<-'EOS'
   require 'rails'
 
   %w(
@@ -30,6 +30,9 @@ if yes?("Would you like to use Mongoid?")
     require "#{framework}/railtie"
   end
   EOS
+
+  gsub_file 'config/environments/development.rb', /config.active_record/, '# config.active_record'
+  gsub_file 'config/environments/test.rb', /config.active_record/, '# config.active_record'
 
   generate "mongoid:config"
 end
@@ -59,6 +62,20 @@ if yes?("Would you like to install twitter bootstrap?")
 
   empty_directory "public/img"
   run "cp tmp/bootstrap/img/* public/img/"
+
+  insert_into_file(
+    "app/assets/stylesheets/application.css",
+    " *= require bootstrap\n *= require bootstrap-responsive\n",
+    :after => " *= require_self\n"
+  )
+
+  insert_into_file(
+    "app/assets/javascripts/application.js",
+    "//= require bootstrap\n",
+    :after => "//= require jquery_ujs\n"
+  )
+
+  append_to_file "app/assets/stylesheets/application.css", "body { padding-top: 60px; }\n"
 
   get "#{remote_base_url}/files/app/helpers/alerts_helper.rb", "app/helpers/alerts_helper.rb"
   get "#{remote_base_url}/files/app/views/layouts/bootstrap.html.erb", "app/views/layouts/application.html.erb"
