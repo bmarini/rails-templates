@@ -4,8 +4,8 @@ create_file "Procfile", "web: bundle exec unicorn -p $PORT"
 
 # Mongoid
 if yes?("Would you like to use Mongoid?")
-  gem("mongoid")
-  gem("bson_ext")
+  gem "mongoid"
+  gem "bson_ext"
 
   gsub_file 'Gemfile', /gem 'sqlite3'/, "# gem 'sqlite3'"
   gsub_file 'config/application.rb', /  require 'rails\/all'/, <<-'EOS'
@@ -21,16 +21,18 @@ if yes?("Would you like to use Mongoid?")
   end
   EOS
 
-  generate("mongoid:config")
+  generate "mongoid:config"
 end
 
 # Devise
 if yes?("Would you like to install Devise?")
-  gem("devise")
-  generate("devise:install")
+  gem "devise"
+  generate "devise:install"
+
   model_name = ask("What would you like the user model to be called? [user]")
   model_name = "user" if model_name.blank?
-  generate("devise", model_name)
+
+  generate "devise", model_name
 end
 
 # Twitter's Bootstrap
