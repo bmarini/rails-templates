@@ -7,4 +7,6 @@ My collection of templates
 * http://guides.rubyonrails.org/generators.html#application-templates
 * http://rdoc.info/github/wycats/thor/master/Thor/Actions.html
 
+## Usage
 
+    rails new myapp -m https://raw.github.com/bmarini/rails-templates/master/bootstrap.rb
