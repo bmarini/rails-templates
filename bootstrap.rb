@@ -55,4 +55,4 @@ if yes?("Would you like to install twitter bootstrap?")
 end
 
 # Other javascript goodies
-get "https://github.com/quirkey/sammy/raw/master/lib/sammy.js", "vendor/javascripts/sammy.js"
+get "https://github.com/quirkey/sammy/raw/master/lib/sammy.js", "vendor/assets/javascripts/sammy.js"
