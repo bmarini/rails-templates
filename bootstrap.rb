@@ -49,6 +49,9 @@ if yes?("Would you like to install twitter bootstrap?")
 
   empty_directory "public/img"
   run "cp tmp/bootstrap/img/* public/img/"
+
+  get "https://raw.github.com/bmarini/rails-templates/master/files/app/helpers/alerts_helper.rb",
+      "app/helpers/alerts_helper.rb"
 end
 
 # Other javascript goodies
